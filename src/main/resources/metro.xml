@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-->Dao Layer<-->
+    <bean id="cardDao" class="com.ganesh.persistence.card.CardDao" />
+    <bean id="transactionDao" class="com.ganesh.persistence.transaction.TransactionDao" />
+    <bean id="stationDao" class="com.ganesh.persistence.station.StationDao" />
+
+    <!-->Service Layer<-->
+    <bean id="cardService" class="com.ganesh.service.card.CardService" >
+        <property name="cardDao" ref="cardDao"/>
+    </bean>
+    <bean id="transactionService" class="com.ganesh.service.transaction.TransactionService" >
+        <property name="transactionDao" ref="transactionDao"/>
+        <property name="stationDao" ref="stationDao"/>
+        <property name="cardDao" ref="cardDao"/>
+    </bean>
+    <bean id="stationService" class="com.ganesh.service.station.StationService" >
+        <property name="stationDao" ref="stationDao"/>
+    </bean>
+
+    <!-->Presentation Layer<-->
+    <bean id="metroPresentation" class="com.ganesh.presentation.MetroPresentation" >
+        <property name="cardService" ref="cardService"/>
+        <property name="transactionService" ref="transactionService"/>
+        <property name="stationService" ref="stationService"/>
+    </bean>
+
+
+</beans>
